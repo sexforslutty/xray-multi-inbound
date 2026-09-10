@@ -1,0 +1,94 @@
+{
+  "log": {
+    "loglevel": "none"
+  },
+  "inbounds": [
+    {
+      "tag": "xhttp",
+      "port": 443,
+      "listen": "0.0.0.0",
+      "protocol": "vless",
+      "settings": {
+        "clients": [],
+        "decryption": "none"
+      },
+      "sniffing": {
+        "enabled": false,
+        "destOverride": [
+          "http",
+          "tls",
+          "quic"
+        ]
+      },
+      "streamSettings": {
+        "network": "xhttp",
+        "security": "reality",
+        "xhttpSettings": {
+          "host": "google.com",
+          "mode": "auto",
+          "path": "/"
+        },
+        "realitySettings": {
+          "target": "google.com:443",
+          "shortIds": [
+            "a2a4"
+          ],
+          "privateKey": "wnA1_uCtxUDicmS12PMqN9QCw1_2CgSahj58gYcOivc",
+          "serverNames": [
+            "google.com",
+            "www.google.com"
+          ],
+          "minClientVer": "0.0.0"
+        }
+      }
+    },
+    {
+      "tag": "grpc",
+      "port": 443,
+      "listen": "0.0.0.0",
+      "protocol": "vless",
+      "settings": {
+        "clients": [],
+        "decryption": "none"
+      },
+      "sniffing": {
+        "enabled": false,
+        "destOverride": [
+          "http",
+          "tls",
+          "quic"
+        ]
+      },
+      "streamSettings": {
+        "network": "grpc",
+        "security": "reality",
+        "grpcSettings": {
+          "authority": "google.com",
+          "multiMode": true
+        },
+        "realitySettings": {
+          "target": "google.com:443",
+          "shortIds": [
+            "a2a4"
+          ],
+          "privateKey": "Ec9pm7PLqh-GbPNJw9XqQ_ZWdGL9lJB8gogkHRmsp9s",
+          "serverNames": [
+            "google.com",
+            "www.google.com"
+          ],
+          "minClientVer": "0.0.0"
+        }
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "DIRECT",
+      "protocol": "freedom"
+    },
+    {
+      "tag": "BLOCK",
+      "protocol": "blackhole"
+    }
+  ]
+}

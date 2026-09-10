@@ -1,0 +1,94 @@
+{
+  "log": {
+    "loglevel": "none"
+  },
+  "inbounds": [
+    {
+      "tag": "xhttp - 9443",
+      "port": 9443,
+      "listen": "0.0.0.0",
+      "protocol": "vless",
+      "settings": {
+        "clients": [],
+        "decryption": "none"
+      },
+      "sniffing": {
+        "enabled": false,
+        "destOverride": [
+          "http",
+          "tls",
+          "quic"
+        ]
+      },
+      "streamSettings": {
+        "network": "xhttp",
+        "security": "reality",
+        "xhttpSettings": {
+          "host": "google.com",
+          "mode": "auto",
+          "path": "/"
+        },
+        "realitySettings": {
+          "target": "google.com:443",
+          "shortIds": [
+            "a2a4"
+          ],
+          "privateKey": "pHpxZQxOtua3TRzTQ0VGaAIA0eGMP4XeSX2npOQ8Tls",
+          "serverNames": [
+            "google.com",
+            "www.google.com"
+          ],
+          "minClientVer": "0.0.0"
+        }
+      }
+    },
+    {
+      "tag": "grpc - 9443",
+      "port": 9443,
+      "listen": "0.0.0.0",
+      "protocol": "vless",
+      "settings": {
+        "clients": [],
+        "decryption": "none"
+      },
+      "sniffing": {
+        "enabled": false,
+        "destOverride": [
+          "http",
+          "tls",
+          "quic"
+        ]
+      },
+      "streamSettings": {
+        "network": "grpc",
+        "security": "reality",
+        "grpcSettings": {
+          "authority": "google.com",
+          "multiMode": true
+        },
+        "realitySettings": {
+          "target": "google.com:443",
+          "shortIds": [
+            "a2a4"
+          ],
+          "privateKey": "T1x-MP1HeoZCLX2px8DpU_1L1e0zjZzEl4rlWNUCt18",
+          "serverNames": [
+            "google.com",
+            "www.google.com"
+          ],
+          "minClientVer": "0.0.0"
+        }
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "DIRECT",
+      "protocol": "freedom"
+    },
+    {
+      "tag": "BLOCK",
+      "protocol": "blackhole"
+    }
+  ]
+}
