@@ -19,7 +19,7 @@
 [![XHTTP](https://img.shields.io/badge/XHTTP-56790-F59E0B?style=for-the-badge)](#)
 [![gRPC](https://img.shields.io/badge/gRPC-56791-E11D48?style=for-the-badge)](#)
 
-**Production-oriented Xray configuration for Remnawave**
+**Производительная конфигурация Xray Core для Remnawave**
 
 `VLESS` · `REALITY` · `TCP` · `XHTTP` · `gRPC` · `Self-Steal` · `Routing`
 
@@ -27,11 +27,13 @@
 
 ---
 
-## ✦ Overview
+## ✦ Обзор
 
-Этот репозиторий содержит готовую конфигурацию **Xray Core** для использования с **Remnawave**, а также шаблон клиентской подписки с собственной системой маршрутизации.
+Этот репозиторий содержит готовую конфигурацию **Xray Core** для использования совместно с **Remnawave**, а также шаблон клиентской подписки с собственной системой маршрутизации.
 
-### Server
+Конфигурация ориентирована на несколько вариантов подключения через `VLESS + REALITY` и поддерживает транспортные протоколы `TCP`, `XHTTP` и `gRPC`.
+
+### Архитектура
 
 ```text
                      ┌───────────────────────┐
@@ -61,99 +63,38 @@
                          Self-Steal Target
                                 │
                                 ▼
-                            Internet
+                            Интернет
 ```
 
 ---
 
-## ✦ Features
+## ✦ Возможности
 
 * `VLESS + REALITY`
 * `TCP` transport
 * `XHTTP` transport
 * `gRPC` transport
-* Self-Steal architecture
-* IPv4 DNS strategy
-* DNS `1.1.1.1` + `9.9.9.9`
+* Self-Steal архитектура
+* DNS-стратегия только через IPv4
+* DNS-серверы `1.1.1.1` + `9.9.9.9`
 * HTTP/TLS sniffing
-* Private IP blocking
-* Private domain blocking
-* BitTorrent blocking
-* Custom client-side routing
-* `proxy / direct / block` routing model
-* Russian traffic → `direct`
-* Selected domains → `proxy`
-* Local SOCKS5 / HTTP inbounds
-* Traffic statistics support
+* Блокировка приватных IP-адресов
+* Блокировка приватных доменов
+* Блокировка BitTorrent
+* Пользовательская маршрутизация на стороне клиента
+* Модель маршрутизации `proxy / direct / block`
+* Российский трафик → `direct`
+* Выбранные домены → `proxy`
+* Локальные `SOCKS5` / `HTTP` inbounds
+* Поддержка статистики трафика
 
 ---
 
-## ✦ Connection Methods
+## ✦ Способы подключения
 
-| Transport |  Security |    Port | Tag               |
-| :-------: | :-------: | ------: | :---------------- |
-|   `TCP`   | `REALITY` | `56789` | `TCP-SELFSTEAL`   |
-|  `XHTTP`  | `REALITY` | `56790` | `XHTTP-SELFSTEAL` |
-|   `gRPC`  | `REALITY` | `56791` | `GRPC-SELFSTEAL`  |
+| Транспорт | Безопасность |    Порт | Тег               |
+| :-------: | :----------: | ------: | ----------------- |
+|   `TCP`   |   `REALITY`  | `56789` | `TCP-SELFSTEAL`   |
+|  `XHTTP`  |   `REALITY`  | `56790` | `XHTTP-SELFSTEAL` |
+|   `gRPC`  |   `REALITY`  | `56791` | `GRPC-SELFSTEAL`  |
 
-> [!TIP]
-> Наличие нескольких транспортов позволяет использовать разные варианты подключения в зависимости от клиента и сети.
-
----
-
-# ⚙️ Installation
-
-## 1. Requirements
-
-Перед началом убедитесь, что у вас есть:
-
-* [x] Remnawave
-* [x] Xray Core
-* [x] VPS / сервер
-* [x] REALITY key pair
-* [x] Short ID
-* [x] Self-Steal domain
-* [x] открытые порты `56789`, `56790`, `56791`
-
----
-
-## 2. REALITY Parameters
-
-В конфигурации используются следующие значения:
-
-```text
-PRIVATE KEY
-SHORT ID
-SERVER NAME
-TARGET
-FINGERPRINT
-```
-
-Основной блок:
-
-```json
-{
-  "target": "127.0.0.1:8081",
-  "spiderX": "/",
-  "shortIds": [
-    "YOUR_SHORT_ID"
-  ],
-  "privateKey": "YOUR_PRIVATE_KEY",
-  "fingerprint": "firefox",
-  "serverNames": [
-    "YOUR_SELFSTEAL_DOMAIN"
-  ]
-}
-```
-
-### Replace
-
-```diff
-- YOUR_SHORT_ID
-- YOUR_PRIVATE_KEY
-- YOUR_SELFSTEAL_DOMAIN
-+ YOUR_REAL_VALUES
-```
-
-> [!CAUTION]
-> Никогда не публикуйте `privateKey`, UUID
