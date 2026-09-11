@@ -10,7 +10,7 @@
   ░   ░  ░░░  ░   ░  ░░░    ░    ░░░  ░   ░ ░░░░  
 ```
 
-### `sexforslutty` · Xray × Remnawave
+### `kur0yum3` · Xray × Remnawave
 
 [![Xray](https://img.shields.io/badge/Xray-Core-000000?style=for-the-badge\&logo=xray\&logoColor=white)](https://github.com/XTLS/Xray-core)
 [![Remnawave](https://img.shields.io/badge/Remnawave-111827?style=for-the-badge)](https://github.com/remnawave)
