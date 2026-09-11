@@ -1,0 +1,183 @@
+{
+  "log": {
+    "loglevel": "warning"
+  },
+  "dns": {
+    "servers": [
+      "1.1.1.1",
+      "9.9.9.9",
+      "localhost"
+    ],
+    "queryStrategy": "UseIPv4"
+  },
+  "inbounds": [
+    {
+      "tag": "TCP-SELFSTEAL",
+      "port": 56789,
+      "listen": "0.0.0.0",
+      "protocol": "vless",
+      "settings": {
+        "clients": [],
+        "decryption": "none"
+      },
+      "sniffing": {
+        "enabled": true,
+        "routeOnly": true,
+        "destOverride": [
+          "http",
+          "tls"
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "reality",
+        "realitySettings": {
+          "target": "127.0.0.1:8081",
+          "spiderX": "/",
+          "shortIds": [
+            "ваш short id"
+          ],
+          "privateKey": "ваш private key",
+          "fingerprint": "firefox",
+          "serverNames": [
+            "ваш selfsteal домен"
+          ]
+        }
+      }
+    },
+    {
+      "tag": "XHTTP-SELFSTEAL",
+      "port": 56790,
+      "listen": "0.0.0.0",
+      "protocol": "vless",
+      "settings": {
+        "clients": [],
+        "decryption": "none"
+      },
+      "sniffing": {
+        "enabled": true,
+        "routeOnly": true,
+        "destOverride": [
+          "http",
+          "tls"
+        ]
+      },
+      "streamSettings": {
+        "network": "xhttp",
+        "security": "reality",
+        "xhttpSettings": {
+          "host": "ваш selfsteal домен",
+          "mode": "auto",
+          "path": "/"
+        },
+        "realitySettings": {
+          "target": "127.0.0.1:8081",
+          "spiderX": "/",
+          "shortIds": [
+            "ваш short id"
+          ],
+          "privateKey": "ваш private key",
+          "fingerprint": "firefox",
+          "serverNames": [
+            "ваш selfsteal домен"
+          ]
+        }
+      }
+    },
+    {
+      "tag": "GRPC-SELFSTEAL",
+      "port": 56791,
+      "listen": "0.0.0.0",
+      "protocol": "vless",
+      "settings": {
+        "clients": [],
+        "decryption": "none"
+      },
+      "sniffing": {
+        "enabled": true,
+        "routeOnly": true,
+        "destOverride": [
+          "http",
+          "tls"
+        ]
+      },
+      "streamSettings": {
+        "network": "grpc",
+        "security": "reality",
+        "grpcSettings": {
+          "multiMode": false,
+          "serviceName": "grpc-reality"
+        },
+        "realitySettings": {
+          "target": "127.0.0.1:8081",
+          "spiderX": "/",
+          "shortIds": [
+            "ваш short id"
+          ],
+          "privateKey": "ваш private key",
+          "fingerprint": "firefox",
+          "serverNames": [
+            "ваш selfsteal домен"
+          ]
+        }
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "DIRECT",
+      "protocol": "freedom"
+    },
+    {
+      "tag": "BLOCK",
+      "protocol": "blackhole"
+    }
+  ],
+  "routing": {
+    "rules": [
+      {
+        "ip": [
+          "geoip:private"
+        ],
+        "outboundTag": "BLOCK"
+      },
+      {
+        "domain": [
+          "geosite:private"
+        ],
+        "outboundTag": "BLOCK"
+      },
+      {
+        "protocol": [
+          "bittorrent"
+        ],
+        "outboundTag": "BLOCK"
+      },
+      {
+        "inboundTag": [
+          "VLESS_TCP",
+          "VLESS_XHTTP",
+          "VLESS_GRPC"
+        ],
+        "outboundTag": "DIRECT"
+      }
+    ]
+  },
+  "policy": {
+    "levels": {
+      "0": {
+        "connIdle": 300,
+        "handshake": 15,
+        "bufferSize": 10240,
+        "uplinkOnly": 2,
+        "downlinkOnly": 5
+      }
+    },
+    "system": {
+      "statsInboundUplink": false,
+      "statsOutboundUplink": false,
+      "statsInboundDownlink": false,
+      "statsOutboundDownlink": false
+    }
+  }
+}
